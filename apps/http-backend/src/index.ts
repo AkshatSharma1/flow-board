@@ -16,7 +16,7 @@ import { getMessages } from "./controllers/chatController"
 
 // Initialize app
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3002;
 
 // Middleware
 app.use(express.json());

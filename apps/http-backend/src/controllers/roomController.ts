@@ -33,6 +33,7 @@ export const createRoom = async (
       return;
     }
 
+    //if room not exists
     const room = await prismaClient.room.create({
       data: {
         slug: roomData.data.roomName,
@@ -47,6 +48,7 @@ export const createRoom = async (
     });
 
     return;
+    
   } catch (error) {
     next(error);
   }

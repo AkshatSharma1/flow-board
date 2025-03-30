@@ -8,7 +8,7 @@ export function useSocket(){
     //on mount
     useEffect(()=>{
         //on mouting setup a websocket server
-        const ws = new WebSocket(`${WS_URL}?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNzczZGE1MC05MzFhLTQ4YzMtOTNmYy04YTQwNTVmYjZiNmEiLCJpYXQiOjE3NDIxNTA4Nzl9.Vr5qkUPllCA6B-F_UkrXaY_lB16qGNnjbsleQ78-Lm8`);
+        const ws = new WebSocket(WS_URL,["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNzczZGE1MC05MzFhLTQ4YzMtOTNmYy04YTQwNTVmYjZiNmEiLCJpYXQiOjE3NDIzMjI1OTIsImV4cCI6MTc0MjkyNzM5Mn0.1oKs0b-tCeLD59_lGweU4DYqCJosdAjSliwB3xi_sFk"]);
         ws.onopen = ()=>{
             setLoading(false);
             setSocket(ws);

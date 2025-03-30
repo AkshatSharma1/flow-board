@@ -15,3 +15,9 @@ export const SignInSchema = z.object({
 export const CreateRoomSchema = z.object({
     roomName: z.string().min(3).max(15)
 })
+
+export const ChatMessageSchema = z.object({
+    type: z.literal("chat"),
+    roomId: z.string(),
+    message: z.string().min(1).max(500)
+})
