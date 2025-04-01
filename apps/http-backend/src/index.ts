@@ -5,6 +5,9 @@ import { errorHandler } from "./middlewares/ErrorHandler";
 import { signUp, signIn } from "./controllers/userController";
 import { getRoomBySlug, createRoom } from "./controllers/roomController";
 import { getMessages } from "./controllers/chatController"
+import cookieParser from "cookie-parser"
+import cors from "cors"
+
 
 //error Handler Middleware
 
@@ -19,9 +22,18 @@ const app = express();
 const port = process.env.PORT || 3002;
 
 // Middleware
+const corsOptions = {
+  origin: "http://localhost:3001",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+};
+
+app.use(cors(corsOptions))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //   app.use(rateLimiter());
+app.use(cookieParser());
 
 // Routes
 app.post("/sign-up", signUp);
