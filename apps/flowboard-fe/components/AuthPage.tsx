@@ -15,6 +15,7 @@ import { Label } from "./ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BACKEND_URL } from "@/config";
+import { useAuth } from "./AuthContext";
 
 export function AuthPage({ isSignIn }: { isSignIn: boolean }) {
     const router = useRouter();
@@ -24,6 +25,8 @@ export function AuthPage({ isSignIn }: { isSignIn: boolean }) {
     const [username, setUsername] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+
+    const {login} = useAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

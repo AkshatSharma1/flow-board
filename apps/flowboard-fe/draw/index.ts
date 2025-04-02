@@ -20,7 +20,7 @@ export async function initDraw(canvas: HTMLCanvasElement, roomId: string, socket
     const ctx = canvas.getContext("2d");
 
     //storing shapes
-    const existingShapes: Shape[] = await getExistingShapes(roomId);
+    let existingShapes: Shape[] = await getExistingShapes(roomId);
 
     //handle null
     if (!ctx) return;
@@ -107,26 +107,28 @@ const clearCanvas = (existingShapes: Shape[], canvas: HTMLCanvasElement, ctx: Ca
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     //render existing shapes
-    existingShapes.forEach((shape) => {
-        if (shape.type === "rect") {
-            ctx.strokeStyle = "rgb(255,255,255)";
-            ctx.strokeRect(shape.x, shape.y, shape.width, shape.height);
-        }
-        //do for all shapes
-    })
+    if(existingShapes.length>0){
+        existingShapes.forEach((shape) => {
+            if (shape.type === "rect") {
+                ctx.strokeStyle = "rgb(255,255,255)";
+                ctx.strokeRect(shape.x, shape.y, shape.width, shape.height);
+            }
+            //do for all shapes
+        })
+    }
+
 }
 
 //get existing shapes from backend
 const getExistingShapes = async (roomId: string) => {
     const res = await axios.get(`${BACKEND_URL}/chats/${roomId}`);
-    const messages = res.data.messages;
-
+    console.log(res)
     //render shapes
-    const shapes = messages.forEach((x: { message: string }) => {
+    const messages = res.data.messages || []; // Default to empty array if undefined
+    const shapes = messages.map((x: { message: string }) => {
         const messageData = JSON.parse(x.message);
-
         return messageData.shape;
-    })
+    });
 
     return shapes;
 }

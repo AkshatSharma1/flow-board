@@ -15,11 +15,10 @@ export function Canvas({roomId, socket}:{
             initDraw(canvas, roomId, socket);
         }
         
-    },[canvasRef, roomId])
+    }, [])
 
 
     return <div>
-        {/* Give full width and height */}
-        <canvas ref={canvasRef} id="canvas" width="100%" height="100%"/>
+        <canvas ref={canvasRef} id="canvas" />
     </div>
 }

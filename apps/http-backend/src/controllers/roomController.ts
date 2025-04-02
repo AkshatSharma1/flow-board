@@ -17,7 +17,10 @@ export const createRoom = async (
       });
       return;
     }
-    const userId = req.userId;
+
+    // console.log(req.body.userId);
+
+    const userId = req.body.userId;
     if (!userId) {
       res.status(401).json({ message: "Authentication required" });
       return;
@@ -30,6 +33,15 @@ export const createRoom = async (
 
     if (existingRoom) {
       res.status(409).json({ message: "Room already exists with this name" });
+      return;
+    }
+
+    const existingUser = await prismaClient.user.findUnique({
+      where: { id: userId },
+    });
+    
+    if (!existingUser) {
+      res.status(400).json({ message: "Invalid userId: User does not exist" });
       return;
     }
 

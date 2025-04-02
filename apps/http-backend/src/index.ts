@@ -40,9 +40,12 @@ app.post("/sign-up", signUp);
 app.post("/sign-in", signIn);
 
 // Protected routes
-app.post("/room", authMiddleware, createRoom);
+app.post("/room", createRoom);
 app.get("/room/:slug", getRoomBySlug);
 app.get("/chats/:roomId", getMessages);
+app.get("/validate-token",authMiddleware,(req,res)=>{
+  res.status(200).json({valid: true})
+})
 
 // Error handling - must be last
 app.use(errorHandler);
